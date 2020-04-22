@@ -18,10 +18,16 @@ class App extends React.Component {
             .catch(err => console.log(err));
     }
 
+    handleClickAdd() {
+        this.setState({adding: true});
+        document.getElementById("add-parent").style.visibility = "visible";
+    }
+
     render() {
         return (
             <section>
-                <AddButton />
+                <Add />
+                <AddButton onClick={() => this.handleClickAdd()} />
                 <div id="listing-container">
                     {this.state.loading
                         ?

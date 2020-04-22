@@ -18,7 +18,7 @@ body {
     padding: 6px;
 }
 
-.listing {
+.listing, #add-inner {
     border-radius: 10px;
     border: 4px solid #DDD;
     border-bottom-color: #666;
@@ -100,6 +100,29 @@ button:focus {
 
 #addbutton img {
     width: 75px;
+}
+
+#add-outer {
+    z-index: 4;
+    opacity: 0.67;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-inner {
+    z-index: 8;
+    display: inline-block;
+}
+
+#add-parent {
+    visibility: hidden;
 }
 
 /* code {

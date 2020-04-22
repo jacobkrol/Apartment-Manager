@@ -29,11 +29,35 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
 })
 
-//return listings at endpoint
-app.get('/api', async (req, res) => {
+//return all listings
+app.get('/api/all', async (req, res) => {
     try {
         const client = await pool.connect();
         const result = await client.query('SELECT * FROM Listings;');
+        res.send((result) ? result.rows : null);
+    } catch(err) {
+        console.log(err);
+        res.send('Error '+err);
+    }
+})
+
+//return active listings
+app.get('/api/active', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query('SELECT * FROM Listings WHERE removed=false;');
+        res.send((result) ? result.rows : null);
+    } catch(err) {
+        console.log(err);
+        res.send('Error '+err);
+    }
+})
+
+//return removed listings
+app.get('/api/removed', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query('SELECT * FROM Listings WHERE removed=true;');
         res.send((result) ? result.rows : null);
     } catch(err) {
         console.log(err);

@@ -7,15 +7,22 @@ class App extends React.Component {
     state = {
         data: [],
         loading: false,
-        adding: false
+        adding: false,
+        message: "Loading data. Please wait..."
     }
 
     componentDidMount() {
         this.setState({loading: true})
-        fetch('https://zoommates.herokuapp.com/api')
+        fetch('https://zoommates.herokuapp.com/api/active')
             .then(res => res.json())
-            .then(data => this.setState({data, loading: false}))
-            .catch(err => console.log(err));
+            .then(data => {
+                this.setState({data, loading: false});
+                data.length ? this.setState({message: "Success"}) : this.setState({message: "No results found."});
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({message: "An error has occurred accessing the data. Please try again later."});
+            });
     }
 
     handleClickAdd() {
@@ -31,7 +38,7 @@ class App extends React.Component {
                 <div id="listing-container">
                     {this.state.loading
                         ?
-                        <h2>Loading data. Please wait...</h2>
+                        <h2>{this.state.message}</h2>
                         :
                         this.state.data.map(
                             listing => <Listing

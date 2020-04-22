@@ -9,7 +9,7 @@ class Add extends React.Component {
                         <h2>Add a Listing</h2>
                         <form
                             method="post"
-                            action="http://localhost:5000/api/post"//https://zoommates.herokuapp.com/api/post"
+                            action="https://zoommates.herokuapp.com/api/post"
                         >
                             <label className="required">Required field</label>
                             <label><span className="required">Link:</span>&nbsp;

@@ -30,10 +30,15 @@ class App extends React.Component {
         document.getElementById("add-parent").style.visibility = "visible";
     }
 
+    handleClickCancel() {
+        this.setState({adding: false});
+        document.getElementById("add-parent").style.visibility = "hidden";
+    }
+
     render() {
         return (
             <section>
-                <Add />
+                <Add onClick={() => this.handleClickCancel()} />
                 <AddButton onClick={() => this.handleClickAdd()} />
                 <div id="listing-container">
                     {this.state.loading

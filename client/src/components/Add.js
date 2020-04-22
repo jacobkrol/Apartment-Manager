@@ -7,7 +7,10 @@ class Add extends React.Component {
                 <div id="add-outer">
                     <div id="add-inner">
                         <h2>Add a Listing</h2>
-                        <form>
+                        <form
+                            method="post"
+                            action="https://zoommates.herokuapp.com/api/post"
+                        >
                             <label className="required">Required field</label>
                             <label><span className="required">Link:</span>&nbsp;
                                 <input type="text" name="link" placeholder="https://www.zillow.com/..." />
@@ -27,6 +30,9 @@ class Add extends React.Component {
                             <label><span className="required">Baths:</span>&nbsp;
                                 <input type="text" name="baths" placeholder="1" />
                             </label>
+                            <label>Square feet:&nbsp;
+                                <input type="text" name="sqft" placeholder="1400" />
+                            </label>
                             <label>In-Unit?&nbsp;
                                 <input type="checkbox" name="inunit" />&nbsp;
                                 <span id="input-inunit-message"></span>
@@ -41,8 +47,7 @@ class Add extends React.Component {
                                 <input type="text" name="details" placeholder="blackboard wall" />
                             </label>
                             <input type="submit" />
-                            <input type="button" value="Cancel" />
-
+                            <input type="button" value="Cancel" onClick={() => this.props.onClick()} />
                         </form>
                     </div>
                 </div>

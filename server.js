@@ -3,6 +3,7 @@ const path = require('path')
 const cors = require('cors')
 const dotenv = require('dotenv')
 const { Pool } = require('pg')
+const bodyParser = require('body-parser')
 const app = express()
 const PORT = process.env.PORT || 5000
 
@@ -23,6 +24,10 @@ app.use((req,res,next) => {
    res.header('Access-Control-Allow-Origin', '*')
    next()
 })
+
+//enable body parser
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
 
 //return project at root
 app.get('/', (req, res) => {
@@ -67,7 +72,7 @@ app.get('/api/removed', async (req, res) => {
 
 //receive new listings
 app.post('/api/post', (req, res) => {
-    console.log(req);
+    console.log(req.params);
 })
 
 //log to console the active server

@@ -1,11 +1,13 @@
 import React from 'react';
 import Listing from './components/Listing.js';
 import AddButton from './components/AddButton.js';
+import Add from './components/Add.js';
 
 class App extends React.Component {
     state = {
         data: [],
-        loading: false
+        loading: false,
+        adding: false
     }
 
     componentDidMount() {

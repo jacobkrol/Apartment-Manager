@@ -1,6 +1,6 @@
 import React from 'react';
 import BusImg from '../graphics/public-transit.png';
-import ManImg from '../graphics/walking-man.png';
+import WalkImg from '../graphics/walking-man.png';
 
 class Listing extends React.Component {
 
@@ -21,19 +21,19 @@ class Listing extends React.Component {
     }
 
     render() {
-        const {img, address, nickname, beds,
+        const {img, link, address, nickname, beds,
                baths, sqft, rent, inUnit,
                transitPublic, transitFoot, details} = this.props;
         return (
             <div className="listing">
                 <img src={img} alt={this.getImageAlt(address)} />
                 <div className="info-row">
-                    <p className="address">{address}</p>
+                    <a href={link} target="_blank" rel="noopener noreferrer" className="address">{address}</a>
                     <p>"{nickname}"</p>
                 </div>
                 <div className="info-row">
                     <p>{beds} Beds</p>
-                    <p>{baths} Baths</p>
+                    <p>{Math.trunc(baths) == baths ? Math.trunc(baths) : baths} {baths > 1 ? "Baths" : "Bath"}</p>
                     <p>{sqft} ft<sup>2</sup></p>
                     <p style={{color: this.getInUnitColor(inUnit)}}>{this.getInUnitPhrase(inUnit)}In-Unit</p>
                 </div>
@@ -46,7 +46,7 @@ class Listing extends React.Component {
                         <p>{transitPublic} min</p>
                     </span>
                     <span>
-                        <img src={ManImg} alt="by foot" />
+                        <img src={WalkImg} alt="by foot" />
                         <p>{transitFoot} min</p>
                     </span>
                 </div>

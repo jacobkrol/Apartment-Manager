@@ -43,6 +43,7 @@ class App extends React.Component {
                         this.state.data.map(
                             listing => <Listing
                                 key={listing.id}
+                                link={listing.link}
                                 address={listing.address}
                                 nickname={listing.nickname}
                                 img={listing.img}

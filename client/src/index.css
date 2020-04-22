@@ -18,20 +18,39 @@ body {
     padding: 6px;
 }
 
+.listing {
+    margin: 6px;
+}
+
 .listing, #add-inner {
     border-radius: 10px;
     border: 4px solid #DDD;
     border-bottom-color: #666;
     border-right-color: #666;
-    margin: 6px;
     padding: 12px;
     background-color: #ccc;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h2 {
+    margin: 0;
+}
+
 p {
     margin: 0;
-    font-size: 14pt;
     display: inline-block;
+}
+
+p, input[type="text"], input[type="number"], label {
+    font-size: 12pt;
 }
 
 .info-row {
@@ -76,7 +95,7 @@ button {
     margin: 0;
 }
 
-button:focus {
+button:focus, input[type="button"]:focus {
     outline: none;
 }
 
@@ -115,11 +134,44 @@ button:focus {
 
 #add-inner {
     z-index: 8;
-    display: inline-block;
 }
 
 #add-parent {
     visibility: hidden;
+}
+
+label {
+    margin: 3px 0 3px 0;
+    display: flex;
+    padding: 0;
+}
+
+#add-inner input[type="text"], #add-inner input[type="number"] {
+    flex-grow: 1;
+    margin: 0;
+    padding: 2px;
+}
+
+#add-inner input[type="checkbox"] {
+    height: 16pt;
+    margin: 1pt;
+}
+
+#add-inner input[type="submit"], #add-inner input[type="button"] {
+    float: right;
+    margin: 12px 6px 12px 6px;
+    font-size: 12pt;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.required::after {
+    content: "*";
+    color: red;
+}
+
+label.required:first-of-type {
+    margin: 12px 0 18px 0;
 }
 
 /* code {

@@ -13,7 +13,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.setState({loading: true})
-        fetch('https://zoommates.herokuapp.com/api/active')
+        fetch('http://localhost:5000/api/active')//https://zoommates.herokuapp.com/api/active')
             .then(res => res.json())
             .then(data => {
                 this.setState({data, loading: false});

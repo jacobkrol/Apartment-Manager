@@ -9,11 +9,14 @@ class Add extends React.Component {
                         <h2>Add a Listing</h2>
                         <form
                             method="post"
-                            action="https://zoommates.herokuapp.com/api/post"
+                            action="http://localhost:5000/api/post"//https://zoommates.herokuapp.com/api/post"
                         >
                             <label className="required">Required field</label>
                             <label><span className="required">Link:</span>&nbsp;
                                 <input type="text" name="link" placeholder="https://www.zillow.com/..." />
+                            </label>
+                            <label>Image Link:&nbsp;
+                                <input type="text" name="img" placeholder="https://photos.zillowstatic.com/..." />
                             </label>
                             <label><span className="required">Address:</span>&nbsp;
                                 <input type="text" name="address" placeholder="719 S Loomis St Apt 2" />

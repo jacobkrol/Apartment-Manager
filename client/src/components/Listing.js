@@ -29,7 +29,7 @@ class Listing extends React.Component {
                 <img src={img} alt={this.getImageAlt(address)} />
                 <div className="info-row">
                     <a href={link} target="_blank" rel="noopener noreferrer" className="address">{address}</a>
-                    <p>"{nickname}"</p>
+                    <p>{nickname ? '"' : ''}{nickname}{nickname ? '"' : ''}</p>
                 </div>
                 <div className="info-row">
                     <p>{beds} Beds</p>
@@ -51,7 +51,7 @@ class Listing extends React.Component {
                     </span>
                 </div>
                 <div className="info-row">
-                    <p className="details">Additional info: {details}</p>
+                    <p className="details">Additional info: {details ? details : "none"}</p>
                 </div>
             </div>
         )

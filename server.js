@@ -22,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 //allow external calls
 app.use((req,res,next) => {
    res.header('Access-Control-Allow-Origin', '*')
+   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
    next()
 })
 
@@ -50,7 +51,7 @@ app.get('/api/all', async (req, res) => {
 app.get('/api/active', async (req, res) => {
     try {
         const client = await pool.connect();
-        const result = await client.query('SELECT * FROM Listings WHERE removed=false;');
+        const result = await client.query('SELECT * FROM Listings WHERE removed=false ORDER BY id ASC;');
         res.send((result) ? result.rows : null);
     } catch(err) {
         console.log(err);
@@ -71,8 +72,18 @@ app.get('/api/removed', async (req, res) => {
 })
 
 //receive new listings
-app.post('/api/post', (req, res) => {
-    console.log(req.params);
+app.post('/api/post', async (req, res) => {
+    try {
+        console.log(req.body);
+        const client = await pool.connect();
+        const result = await client.query('INSERT INTO Listings VALUES (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,DEFAULT,DEFAULT,$12)',
+                                          [req.body.address,req.body.nickname || null,req.body.img || null,req.body.rent,req.body.sqft,req.body.beds,req.body.baths,req.body.inunit === "on" ? "true" : "false",req.body.transitpublic || null,req.body.transitfoot || null,req.body.details || null,req.body.link]);
+        res.send("Success");
+    } catch(err) {
+        console.log(err);
+        res.send(err);
+    }
+    next();
 })
 
 //log to console the active server

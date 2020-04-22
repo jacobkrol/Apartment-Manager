@@ -65,5 +65,10 @@ app.get('/api/removed', async (req, res) => {
     }
 })
 
+//receive new listings
+app.post('/api/post', (req, res) => {
+    console.log(req);
+})
+
 //log to console the active server
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))

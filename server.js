@@ -51,7 +51,7 @@ app.get('/api/all', async (req, res) => {
 app.get('/api/active', async (req, res) => {
     try {
         const client = await pool.connect();
-        const result = await client.query('SELECT * FROM Listings WHERE removed=false ORDER BY id ASC;');
+        const result = await client.query('SELECT * FROM Listings WHERE removed=false ORDER BY id DESC;');
         res.send((result) ? result.rows : null);
     } catch(err) {
         console.log(err);

@@ -22,7 +22,7 @@ body {
     margin: 6px;
 }
 
-.listing, #add-inner {
+.listing, #add-inner, #filter-inner {
     border-radius: 10px;
     border: 4px solid #DDD;
     border-bottom-color: #666;
@@ -101,9 +101,8 @@ button:focus, input[type="button"]:focus {
     outline: none;
 }
 
-#addbutton {
+#addbutton, #filterbutton {
     position: fixed;
-    bottom: 15px;
     right: 15px;
     width: 75px;
     height: 75px;
@@ -114,16 +113,29 @@ button:focus, input[type="button"]:focus {
     background: #77D;
 }
 
-#addbutton:active {
+#addbutton {
+    bottom: 15px;
+}
+
+#filterbutton {
+    bottom: 105px;
+}
+
+#addbutton:active, #filterbutton:active {
     transform: translate(3px,3px);
     border-width: 0 1px 1px 0;
 }
 
-#addbutton img {
-    width: 75px;
+#filterbutton img {
+    width: 40px;
+    margin-top: 5px;
 }
 
-#add-outer {
+#addbutton img {
+    width: 60px;
+}
+
+#add-outer, #filter-outer {
     z-index: 4;
     width: 100%;
     height: 100%;
@@ -134,11 +146,11 @@ button:focus, input[type="button"]:focus {
     justify-content: center;
 }
 
-#add-inner {
+#add-inner, #filter-inner {
     z-index: 8;
 }
 
-#add-parent {
+#add-parent, #filter-parent {
     visibility: hidden;
 }
 

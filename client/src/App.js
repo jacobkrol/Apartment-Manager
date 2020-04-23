@@ -2,12 +2,15 @@ import React from 'react';
 import Listing from './components/Listing.js';
 import AddButton from './components/AddButton.js';
 import Add from './components/Add.js';
+import FilterButton from './components/FilterButton.js';
+import Filter from './components/Filter.js';
 
 class App extends React.Component {
     state = {
         data: [],
         loading: false,
         adding: false,
+        filtering: false,
         message: "Loading data. Please wait..."
     }
 
@@ -33,12 +36,21 @@ class App extends React.Component {
     handleClickCancel() {
         this.setState({adding: false});
         document.getElementById("add-parent").style.visibility = "hidden";
+        this.setState({filtering: false});
+        document.getElementById("filter-parent").style.visibility = "hidden";
+    }
+
+    handleClickFilter() {
+        this.setState({filtering: true});
+        document.getElementById("filter-parent").style.visibility = "visible";
     }
 
     render() {
         return (
             <section>
                 <Add onClick={() => this.handleClickCancel()} />
+                <Filter onClick={() => this.handleClickCancel()} />
+                <FilterButton onClick={() => this.handleClickFilter()} />
                 <AddButton onClick={() => this.handleClickAdd()} />
                 <div id="listing-container">
                     {this.state.loading

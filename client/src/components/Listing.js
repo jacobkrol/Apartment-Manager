@@ -34,7 +34,7 @@ class Listing extends React.Component {
                 <div className="info-row">
                     <p>{beds} Beds</p>
                     <p>{Math.trunc(baths) == baths ? Math.trunc(baths) : baths} {baths > 1 ? "Baths" : "Bath"}</p>
-                    <p>{sqft} ft<sup>2</sup></p>
+                    <p>{sqft > 0 ? sqft : "Unknown"} ft<sup>2</sup></p>
                     <p style={{color: this.getInUnitColor(inUnit)}}>{this.getInUnitPhrase(inUnit)}In-Unit</p>
                 </div>
                 <div className="info-row">

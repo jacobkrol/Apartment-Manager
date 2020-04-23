@@ -77,7 +77,7 @@ app.post('/api/post', async (req, res) => {
         console.log(req.body);
         const client = await pool.connect();
         const result = await client.query('INSERT INTO Listings VALUES (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,DEFAULT,DEFAULT,$12)',
-                                          [req.body.address,req.body.nickname || null,req.body.img || null,req.body.rent,req.body.sqft,req.body.beds,req.body.baths,req.body.inunit === "on" ? "true" : "false",req.body.transitpublic || null,req.body.transitfoot || null,req.body.details || null,req.body.link]);
+                                          [req.body.address,req.body.nickname || null,req.body.img || null,req.body.rent,req.body.sqft || 0,req.body.beds,req.body.baths,req.body.inunit === "on" ? "true" : "false",req.body.transitpublic || null,req.body.transitfoot || null,req.body.details || null,req.body.link]);
         res.send("Success");
     } catch(err) {
         console.log(err);

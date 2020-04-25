@@ -1,6 +1,11 @@
 import React from 'react';
 
 class Add extends React.Component {
+
+    newMessage = e => {
+        document.getElementById("inunit-add-message").innerText = document.getElementById("inunit-add-checkbox").checked ? "Yes" : "No";
+    }
+
     render() {
         return (
             <div id="add-parent">
@@ -37,14 +42,14 @@ class Add extends React.Component {
                                 <input type="text" name="sqft" placeholder="1400" />
                             </label>
                             <label>In-Unit?&nbsp;
-                                <input type="checkbox" name="inunit" />&nbsp;
-                                <span id="input-inunit-message"></span>
+                                <input id="inunit-add-checkbox" type="checkbox" name="inunit" onChange={this.newMessage} />&nbsp;
+                                <span id="inunit-add-message">No</span>
                             </label>
                             <label>CTA commute:&nbsp;
-                                <input type="number" name="transitpublic" placeholder="10" />
+                                <input type="number" name="transitpublic" placeholder="10" min="0" max="99" />
                             </label>
                             <label>Walking commute:&nbsp;
-                                <input type="number" name="transitfoot" placeholder="20" />
+                                <input type="number" name="transitfoot" placeholder="20" min="0" max="99" />
                             </label>
                             <label>Additional details:&nbsp;
                                 <input type="text" name="details" placeholder="blackboard wall" />

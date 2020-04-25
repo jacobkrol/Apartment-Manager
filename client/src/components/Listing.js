@@ -5,7 +5,8 @@ import WalkImg from '../graphics/walking-man.png';
 class Listing extends React.Component {
 
     getPerPerson = rent => {
-        return Math.round(100*rent/4)/100;
+        const value = Math.round(100*rent/4)/100;
+        return Math.trunc(value) < value ? value.toFixed(2) : value;
     }
 
     getImageAlt = address => {
@@ -33,7 +34,7 @@ class Listing extends React.Component {
                 </div>
                 <div className="info-row">
                     <p>{beds} Beds</p>
-                    <p>{Math.trunc(baths) == baths ? Math.trunc(baths) : baths} {baths > 1 ? "Baths" : "Bath"}</p>
+                    <p>{Math.trunc(baths) < baths ? baths : Math.trunc(baths)} {baths > 1 ? "Baths" : "Bath"}</p>
                     <p>{sqft > 0 ? sqft : "Unknown"} ft<sup>2</sup></p>
                     <p style={{color: this.getInUnitColor(inUnit)}}>{this.getInUnitPhrase(inUnit)}In-Unit</p>
                 </div>

@@ -43,7 +43,7 @@ a:hover {
 }
 
 h2 {
-    margin: 0;
+    margin: 0 0 18px 0;
 }
 
 p {
@@ -160,23 +160,32 @@ label {
     padding: 0;
 }
 
-#add-inner input[type="text"], #add-inner input[type="number"] {
+form input[type="text"], form input[type="number"], form select {
     flex-grow: 1;
     margin: 0;
     padding: 2px;
 }
 
-#add-inner input[type="checkbox"] {
+form input[type="checkbox"] {
     height: 16pt;
     margin: 1pt;
 }
 
-#add-inner input[type="submit"], #add-inner input[type="button"] {
+form input[type="submit"], form input[type="button"] {
     float: right;
     margin: 12px 6px 12px 6px;
     font-size: 12pt;
     padding: 6px;
     border-radius: 6px;
+}
+
+form select {
+    font-size: 12pt;
+}
+
+.linked-input {
+    margin-right: 12px !important;
+    width: 35%;
 }
 
 .required::after {
@@ -185,7 +194,7 @@ label {
 }
 
 label.required:first-of-type {
-    margin: 12px 0 18px 0;
+    margin: 0 0 18px 0;
 }
 
 /* code {

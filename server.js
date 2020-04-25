@@ -71,6 +71,21 @@ app.get('/api/removed', async (req, res) => {
     }
 })
 
+//return removed listings
+app.get('/api/filter', async (req, res) => {
+    try {
+        console.log(req.body);
+        const client = await pool.connect();
+        let text = 'SELECT * FROM Listings WHERE removed=false AND ';
+        text += "1=1";
+        const result = await client.query(text+";");
+        res.send((result) ? result.rows : null);
+    } catch(err) {
+        console.log(err);
+        res.send('Error '+err);
+    }
+})
+
 //receive new listings
 app.post('/api/post', async (req, res) => {
     try {
@@ -78,7 +93,7 @@ app.post('/api/post', async (req, res) => {
         const client = await pool.connect();
         const result = await client.query('INSERT INTO Listings VALUES (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,DEFAULT,DEFAULT,$12)',
                                           [req.body.address,req.body.nickname || null,req.body.img || null,req.body.rent,req.body.sqft || 0,req.body.beds,req.body.baths,req.body.inunit === "on" ? "true" : "false",req.body.transitpublic || null,req.body.transitfoot || null,req.body.details || null,req.body.link]);
-        res.send("Success");
+        res.redirect("https://zoommates.herokuapp.com/");
     } catch(err) {
         console.log(err);
         res.send(err);

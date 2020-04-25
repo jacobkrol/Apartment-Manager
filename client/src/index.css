@@ -9,12 +9,23 @@ body {
 }
 
 #listing-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: flex-start;
-    align-content: flex-start;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -ms-flex-line-pack: start;
+        align-content: flex-start;
     padding: 6px;
 }
 
@@ -29,6 +40,8 @@ body {
     border-right-color: #666;
     padding: 12px;
     background-color: #ccc;
+    background-image: -webkit-gradient(linear,left top, left bottom,from(#d0d0d0),to(#aab4b4));
+    background-image: -o-linear-gradient(#d0d0d0,#aab4b4);
     background-image: linear-gradient(#d0d0d0,#aab4b4);
     max-width: 350px;
 }
@@ -122,7 +135,9 @@ button:focus, input[type="button"]:focus {
 }
 
 #addbutton:active, #filterbutton:active {
-    transform: translate(3px,3px);
+    -webkit-transform: translate(3px,3px);
+        -ms-transform: translate(3px,3px);
+            transform: translate(3px,3px);
     border-width: 0 1px 1px 0;
 }
 
@@ -141,9 +156,15 @@ button:focus, input[type="button"]:focus {
     height: 100%;
     position: fixed;
     background-color: rgba(34,34,34,0.7);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 #add-inner, #filter-inner {
@@ -156,12 +177,16 @@ button:focus, input[type="button"]:focus {
 
 label {
     margin: 3px 0 3px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     padding: 0;
 }
 
 form input[type="text"], form input[type="number"], form select {
-    flex-grow: 1;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     margin: 0;
     padding: 2px;
 }
@@ -196,8 +221,3 @@ form select {
 label.required:first-of-type {
     margin: 0 0 18px 0;
 }
-
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */

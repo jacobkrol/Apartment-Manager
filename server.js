@@ -72,14 +72,121 @@ app.get('/api/removed', async (req, res) => {
 })
 
 //return removed listings
-app.get('/api/filter', async (req, res) => {
+app.post('/api/filter', async (req, res) => {
     try {
-        console.log(req.body);
-        const client = await pool.connect();
-        let text = 'SELECT * FROM Listings WHERE removed=false AND ';
-        text += "1=1";
-        const result = await client.query(text+";");
-        res.send((result) ? result.rows : null);
+        console.log("New filter request received:",req.body);
+        let text = 'SELECT * FROM Listings WHERE removed=false';
+        let qParams = [];
+        let invalid = false;
+        let paramIndex;
+        for(let q in req.body) {
+            switch(q) {
+                case 'beds':
+                    paramIndex = qParams.length+1;
+                    text += " AND beds>=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'baths':
+                    paramIndex = qParams.length+1;
+                    text += " AND baths>=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'inunit':
+                    paramIndex = qParams.length+1;
+                    text += " AND inunit=$"+String(paramIndex);
+                    qParams.push(req.body[q] === "on" ? "true" : "false");
+                    break;
+                case 'rent-min':
+                    paramIndex = qParams.length+1;
+                    text += " AND rent>=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'rent-max':
+                    paramIndex = qParams.length+1;
+                    text += " AND rent<=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'sqft-min':
+                    paramIndex = qParams.length+1;
+                    text += " AND sqft>=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'sqft-max':
+                    paramIndex = qParams.length+1;
+                    text += " AND sqft<=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'cta-min':
+                    paramIndex = qParams.length+1;
+                    text += " AND transitpublic>=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'cta-max':
+                    paramIndex = qParams.length+1;
+                    text += " AND transitpublic<=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'foot-min':
+                    paramIndex = qParams.length+1;
+                    text += " AND transitfoot>=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'foot-max':
+                    paramIndex = qParams.length+1;
+                    text += " AND transitfoot<=$"+String(paramIndex);
+                    qParams.push(req.body[q]);
+                    break;
+                case 'sort-by':
+                    //continue
+                    break;
+                default:
+                    res.send('invalid column key');
+                    invalid=true;
+                    break;
+            }
+        }
+        if(req.body['sort-by']) {
+            switch(req.body['sort-by']) {
+                case 'newest':
+                    text += " ORDER BY id DESC";
+                    break;
+                case 'rent-lh':
+                    text += " ORDER BY rent ASC";
+                    break;
+                case 'rent-hl':
+                    text += " ORDER BY rent DESC";
+                    break;
+                case 'sqft-lh':
+                    text += " ORDER BY sqft ASC";
+                    break;
+                case 'sqft-hl':
+                    text += " ORDER BY sqft DESC";
+                    break;
+                case 'cta-lh':
+                    text += " ORDER BY transitpublic ASC";
+                    break;
+                case 'cta-hl':
+                    text += " ORDER BY transitpublic DESC";
+                    break;
+                case 'foot-lh':
+                    text += " ORDER BY transitfoot ASC";
+                    break;
+                case 'foot-hl':
+                    text += " ORDER BY transitfoot DESC";
+                    break;
+                default:
+                    console.log("invalid sort-by value");
+                    break;
+            }
+        }
+        if(qParams.length === 0 && !req.body['sort-by']) {
+            text += " ORDER BY id DESC";
+        }
+        if(!invalid) {
+            const client = await pool.connect();
+            const result = await client.query(text, qParams);
+            res.send(result ? result.rows : null);
+        }
     } catch(err) {
         console.log(err);
         res.send('Error '+err);

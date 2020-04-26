@@ -6,6 +6,11 @@ class Filter extends React.Component {
         document.getElementById("inunit-filter-message").innerText = document.getElementById("inunit-filter-checkbox").checked ? "Required" : "No preference";
     }
 
+    onSubmit = e => {
+        e.preventDefault();
+        this.props.onSubmit(document.getElementById("filter-form"));
+    }
+
     render() {
         return (
             <div id="filter-parent">
@@ -13,8 +18,8 @@ class Filter extends React.Component {
                     <div id="filter-inner">
                         <h2>Sort and Filter Listings</h2>
                         <form
-                            method="get"
-                            action="https://zoommates.herokuapp.com/api/filter"
+                            id="filter-form"
+                            onSubmit={this.onSubmit}
                         >
 
                             <label>Sort by:&nbsp;
@@ -23,21 +28,25 @@ class Filter extends React.Component {
                                     <option value="rent-lh">Rent Price - Low to High</option>
                                     <option value="rent-hl">Rent Price - High to Low</option>
                                     <option value="sqft-lh">Square Feet - Low to High</option>
-                                    <option value="sqft=hl">Square Feet - High to Low</option>
+                                    <option value="sqft-hl">Square Feet - High to Low</option>
+                                    <option value="cta-lh">Public Transit - Low to High</option>
+                                    <option value="cta-hl">Public Transit - High to Low</option>
+                                    <option value="foot-lh">Walking Distance - Low to High</option>
+                                    <option value="foot-hl">Walking Distance - High to Low</option>
                                 </select>
                             </label>
 
                             <label>Number of Beds:&nbsp;
                                 <select name="beds">
-                                    <option value="all">No preference</option>
+                                    <option value="">No preference</option>
                                     <option value="3">3+</option>
                                     <option value="4">4+</option>
                                 </select>
                             </label>
 
                             <label>Number of Baths:&nbsp;
-                                <select name="beds">
-                                    <option value="all">No preference</option>
+                                <select name="baths">
+                                    <option value="">No preference</option>
                                     <option value="1">1+</option>
                                     <option value="1.5">1.5+</option>
                                     <option value="2">2+</option>
@@ -66,7 +75,8 @@ class Filter extends React.Component {
                             <label>Walking Distance:</label>
                             <input type="number" className="linked-input" name="foot-min" placeholder="min" min="0" max="99" />
                             <input type="number" className="linked-input" name="foot-max" placeholder="max" min="0" max="99" />
-                            
+
+                            <input type="submit" />
                             <input type="button" value="Cancel" onClick={() => this.props.onClick()} />
                         </form>
                     </div>

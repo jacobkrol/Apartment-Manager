@@ -68,7 +68,9 @@ class App extends React.Component {
     handleFilterSubmit = async (form) => {
         this.setState({filtering: false});
         document.getElementById("filter-parent").style.visibility = "hidden";
-        const data = this.formToJSON(form.elements);
+        let data = this.formToJSON(form.elements);
+        if(data['rent-min']) data['rent-min'] *= 4;
+        if(data['rent-max']) data['rent-max'] *= 4;
         await this.setState({filterParams: data});
         await this.refreshListingData();
     }

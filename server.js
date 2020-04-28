@@ -182,6 +182,9 @@ app.post('/api/filter', async (req, res) => {
         if(qParams.length === 0 && !req.body['sort-by']) {
             text += " ORDER BY id DESC";
         }
+        // console.log("Query:",text);
+        // console.log("Params:",qParams);
+        // console.log("****************************************");
         if(!invalid) {
             const client = await pool.connect();
             const result = await client.query(text, qParams);

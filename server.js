@@ -96,6 +96,13 @@ app.post('/api/filter', async (req, res) => {
                     text += " AND inunit=$"+String(paramIndex);
                     qParams.push(req.body[q] === "on" ? "true" : "false");
                     break;
+                case 'contacted':
+                    if(req.body[q] !== "all") {
+                        paramIndex = qParams.length+1;
+                        text += " AND contacted=$"+String(paramIndex);
+                        qParams.push(req.body[q]);
+                    }
+                    break;
                 case 'rent-min':
                     paramIndex = qParams.length+1;
                     text += " AND rent>=$"+String(paramIndex);

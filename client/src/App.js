@@ -24,7 +24,10 @@ class App extends React.Component {
         this.setState({loading: true, message: "Loading data. Please wait..."});
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
             body: JSON.stringify(this.state.filterParams)
         };
         fetch('https://zoommates.herokuapp.com/api/filter',requestOptions)
@@ -58,7 +61,7 @@ class App extends React.Component {
 
     isValidElement = e => e.value && e.name;
 
-    isValidValue = e => e.type !== 'checkbox' || e.checked;
+    isValidValue = e => !['checkbox','radio'].includes(e.type) || e.checked;
 
     formToJSON = elements => [].reduce.call(elements, (data, e) => {
         if(this.isValidElement(e) && this.isValidValue(e)) data[e.name] = e.value;
@@ -103,6 +106,7 @@ class App extends React.Component {
                                 transitPublic={listing.transitpublic}
                                 transitFoot={listing.transitfoot}
                                 details={listing.details}
+                                contacted={listing.contacted}
                             />
                         )
                     }

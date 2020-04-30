@@ -60,6 +60,14 @@ class Filter extends React.Component {
                                 <span id="inunit-filter-message">No preference</span>
                             </label>
 
+                            <label>
+                                <div className="radio-column">
+                                    <p><input type="radio" name="contacted" value="true" />Contacted</p>
+                                    <p><input type="radio" name="contacted" value="false" />Not Contacted</p>
+                                    <p><input type="radio" name="contacted" value="all" defaultChecked />All Listings</p>
+                                </div>
+                            </label>
+
                             <label>Rent:</label>
                             <input type="number" className="linked-input" name="rent-min" placeholder="min" min="0" max="9999" />
                             <input type="number" className="linked-input" name="rent-max" placeholder="max" min="0" max="9999" />

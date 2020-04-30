@@ -36,8 +36,33 @@ body {
     padding: 6px;
 }
 
-.listing {
+.listing-outer {
     margin: 6px;
+}
+
+.listing-tabs-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
+.listing-tab {
+    margin-right: 6px;
+    padding: 6px 12px 3px 12px;
+    border-radius: 12px 12px 0 0;
+    border-color: #44A #229 #000 #44A;
+    border-width: 3px 3px 0 3px;
+    border-style: solid;
+    background-color: #77D;
+}
+
+.listing-tab button {
+    background-color: inherit;
+}
+
+.listing-tab img {
+    height: 30px;
+    width: 30px;
 }
 
 .listing, #add-inner, #filter-inner {
@@ -201,6 +226,11 @@ form input[type="text"], form input[type="number"], form select {
 form input[type="checkbox"] {
     height: 16pt;
     margin: 1pt;
+}
+
+.radio-column {
+    display: flex;
+    flex-direction: column;
 }
 
 form input[type="submit"], form input[type="button"] {

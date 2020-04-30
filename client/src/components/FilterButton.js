@@ -1,5 +1,5 @@
 import React from 'react';
-import filter from '../graphics/filter-icon.webp';
+import filter from '../graphics/filter.webp';
 
 const FilterButton = (props) => {
     return (

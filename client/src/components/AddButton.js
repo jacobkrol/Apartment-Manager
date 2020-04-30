@@ -1,5 +1,5 @@
 import React from 'react';
-import darkPlus from '../graphics/dark-plus-icon.png';
+import darkPlus from '../graphics/dark-plus.png';
 
 const AddButton = (props) => {
     return (

@@ -236,7 +236,7 @@ app.post('/api/remove', async (req, res) => {
     try {
         console.log("Reqest to remove id",req.body.id);
         const client = await pool.connect();
-        const result = await client.query("UPDATE Listings SET removed='t', SET removedreason=$1 WHERE id=$2", [req.body.removedreason, req.body.id]);
+        const result = await client.query("UPDATE Listings SET removed='t', removedreason=$1 WHERE id=$2", [req.body.removedreason, req.body.id]);
         res.redirect("https://zoommates.herokuapp.com/");
         // res.send("removal successful");
     } catch(err) {

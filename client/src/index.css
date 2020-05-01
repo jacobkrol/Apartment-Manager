@@ -116,6 +116,11 @@ p, input[type="text"], input[type="number"], label {
     display: inline-block;
 }
 
+.info-row .star-filled {
+    max-height: 25px !important;
+    max-width: 25px !important;
+}
+
 img {
     max-height: 100%;
     max-width: 100%;

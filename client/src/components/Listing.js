@@ -5,8 +5,12 @@ import RemoveButton from './RemoveButton.js';
 import BusImg from '../graphics/public-transit.png';
 import WalkImg from '../graphics/walking-man.png';
 import PhoneImg from '../graphics/phone.png';
+import LikeFilledImg from '../graphics/star-filled-2.png';
 
 class Listing extends React.Component {
+    state = {
+        likes: this.props.likes
+    }
 
     getPerPerson = rent => {
         const value = Math.round(100*rent/4)/100;
@@ -25,21 +29,63 @@ class Listing extends React.Component {
         return inUnit ? "" : "No ";
     }
 
+    onClick = (type, id) => {
+        const url = 'https://zoommates.herokuapp.com/api/'+type;
+        console.log(type,"requested");
+        let requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+
+        switch(type) {
+            case 'like':
+                requestOptions['body'] = JSON.stringify({id:id});
+                fetch(url,requestOptions)
+                    .then(res => res.status === 200
+                        ? this.setState(prevState => {return {likes: prevState.likes+1}})
+                        : alert("An error occurred while recording your like.\nHTTP Status No.",res.status)
+                    )
+                    .catch(err => {
+                        console.log(err);
+                    });
+                break;
+
+            case 'remove':
+                requestOptions['body'] = JSON.stringify({id:id,removedreason:"no reason provided"});
+                fetch(url,requestOptions)
+                    .then(res => res.redirected
+                        ? console.log('successful removal',res)
+                        : alert("An error occurred while removing the listing.\nPlease try again later.")
+                    )
+                    .catch(err => {
+                        console.log(err);
+                    });
+                break;
+
+            default:
+                console.log("Unrecognized type",type);
+                break;
+        }
+
+    }
+
     render() {
-        const {img, link, address, nickname, beds,
+        const {id, img, link, address, nickname, beds,
                baths, sqft, rent, inUnit, transitPublic,
-               transitFoot, details, contacted} = this.props;
+               transitFoot, details, contacted, likes} = this.props;
         return (
             <div className="listing-outer">
                 <div className="listing-tabs-row">
                     <div className="listing-tab">
-                        <LikeButton onClick={() => console.log("edit click")} />
+                        <LikeButton id={id} onClick={(id) => this.onClick("like",id)} />
                     </div>
                     <div className="listing-tab">
                         <EditButton onClick={() => console.log("edit click")} />
                     </div>
                     <div className="listing-tab">
-                        <RemoveButton onClick={() => console.log("edit click")} />
+                        <RemoveButton id={id} onClick={(id) => this.onClick("remove",id)} />
                     </div>
                 </div>
                 <div className="listing">
@@ -68,6 +114,15 @@ class Listing extends React.Component {
                             <p>{transitFoot} min</p>
                         </span>
                     </div>
+                    {this.state.likes > 0
+                        ?
+                        <div className="info-row">
+                            {[...Array(this.state.likes)].map((e,i) => <img src={LikeFilledImg} alt="like" className="star-filled" key={i} />)}
+                        </div>
+                        :
+                        <span style={{margin:0}}></span>
+                    }
+
                     <div className="info-row">
                         <p className="details">Additional info: {details ? details : "none"}</p>
                     </div>

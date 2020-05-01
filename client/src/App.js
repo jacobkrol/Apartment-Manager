@@ -94,6 +94,7 @@ class App extends React.Component {
                         this.state.data.map(
                             listing => <Listing
                                 key={listing.id}
+                                id={listing.id}
                                 link={listing.link}
                                 address={listing.address}
                                 nickname={listing.nickname}
@@ -107,6 +108,7 @@ class App extends React.Component {
                                 transitFoot={listing.transitfoot}
                                 details={listing.details}
                                 contacted={listing.contacted}
+                                likes={listing.likes}
                             />
                         )
                     }

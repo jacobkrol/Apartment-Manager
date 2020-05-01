@@ -204,9 +204,9 @@ app.post('/api/filter', async (req, res) => {
 })
 
 //receive new listings
-app.post('/api/post', async (req, res) => {
+app.post('/api/new', async (req, res) => {
     try {
-        console.log(req.body);
+        console.log("New listing received:",req.body);
         const client = await pool.connect();
         const result = await client.query('INSERT INTO Listings VALUES (DEFAULT,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,DEFAULT,DEFAULT,$12)',
                                           [req.body.address,req.body.nickname || null,req.body.img || null,req.body.rent,req.body.sqft || 0,req.body.beds,req.body.baths,req.body.inunit === "on" ? "true" : "false",req.body.transitpublic || null,req.body.transitfoot || null,req.body.details || null,req.body.link]);
@@ -215,7 +215,34 @@ app.post('/api/post', async (req, res) => {
         console.log(err);
         res.send(err);
     }
-    next();
+})
+
+//add to post likes
+app.post('/api/like', async (req, res) => {
+    try {
+        console.log("Like received for id",req.body.id);
+        const client = await pool.connect();
+        const result = await client.query('UPDATE Listings SET likes=likes+1 WHERE id=$1 AND likes<4;', [req.body.id]);
+        // res.redirect("https://zoommates.herokuapp.com/");
+        res.send("like successful");
+    } catch(err) {
+        console.log(err);
+        res.send(err);
+    }
+})
+
+//remove a post
+app.post('/api/remove', async (req, res) => {
+    try {
+        console.log("Reqest to remove id",req.body.id);
+        const client = await pool.connect();
+        const result = await client.query("UPDATE Listings SET removed='t' SET removedreason=$1 WHERE id=$2", [req.body.removedreason, req.body.id]);
+        res.redirect("https://zoommates.herokuapp.com/");
+        // res.send("removal successful");
+    } catch(err) {
+        console.log(err);
+        res.send(err);
+    }
 })
 
 //log to console the active server

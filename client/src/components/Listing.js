@@ -30,7 +30,7 @@ class Listing extends React.Component {
     }
 
     onClick = (type, id, address) => {
-        const url = 'https://zoommates.herokuap.com/api/'+type;
+        const url = 'https://zoommates.herokuapp.com/api/'+type;
         console.log(type,"requested");
         let requestOptions = {
             method: 'POST',

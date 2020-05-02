@@ -85,7 +85,7 @@ class Listing extends React.Component {
                         <LikeButton id={id} onClick={(id) => this.onClick("like",id,"")} />
                     </div>
                     <div className="listing-tab">
-                        <EditButton onClick={() => console.log("edit click")} />
+                        <EditButton onClick={() => window.alert("Editing is not yet available.")} />
                     </div>
                     <div className="listing-tab">
                         <RemoveButton id={id} address={address} onClick={(id) => this.onClick("remove",id, address)} />

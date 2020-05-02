@@ -157,6 +157,9 @@ app.post('/api/filter', async (req, res) => {
                 case 'newest':
                     text += " ORDER BY id DESC";
                     break;
+                case 'popularity':
+                    text += " ORDER BY likes DESC";
+                    break;
                 case 'rent-lh':
                     text += " ORDER BY rent ASC";
                     break;

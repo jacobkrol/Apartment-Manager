@@ -25,6 +25,7 @@ class Filter extends React.Component {
                             <label>Sort by:&nbsp;
                                 <select name="sort-by">
                                     <option value="newest">Newest Uploads</option>
+                                    <option value="popularity">Popularity</option>
                                     <option value="rent-lh">Rent Price - Low to High</option>
                                     <option value="rent-hl">Rent Price - High to Low</option>
                                     <option value="sqft-lh">Square Feet - Low to High</option>

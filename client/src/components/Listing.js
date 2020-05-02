@@ -58,7 +58,7 @@ class Listing extends React.Component {
                 requestOptions['body'] = JSON.stringify({id:id,removedreason:"no reason provided"});
                 fetch(url,requestOptions)
                     .then(res => res.json())
-                    .then(repsonse => response.redirectTo
+                    .then(response => response.redirectTo
                         ? window.location = response.redirectTo
                         : alert("An error occurred while removing the listing.\nPlease try again later.")
                     )

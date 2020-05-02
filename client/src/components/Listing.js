@@ -29,8 +29,8 @@ class Listing extends React.Component {
         return inUnit ? "" : "No ";
     }
 
-    onClick = (type, id) => {
-        const url = 'https://zoommates.herokuapp.com/api/'+type;
+    onClick = (type, id, address) => {
+        const url = 'https://zoommates.herokuap.com/api/'+type;
         console.log(type,"requested");
         let requestOptions = {
             method: 'POST',
@@ -53,10 +53,12 @@ class Listing extends React.Component {
                 break;
 
             case 'remove':
+                const verify = window.confirm("Are you sure you want to remove the listing at "+address+"?");
+                if(!verify) break;
                 requestOptions['body'] = JSON.stringify({id:id,removedreason:"no reason provided"});
                 fetch(url,requestOptions)
-                    .then(res => res.redirected
-                        ? console.log('successful removal',res)
+                    .then(res => res.redirectTo
+                        ? window.location = res.redirectTo
                         : alert("An error occurred while removing the listing.\nPlease try again later.")
                     )
                     .catch(err => {
@@ -74,18 +76,18 @@ class Listing extends React.Component {
     render() {
         const {id, img, link, address, nickname, beds,
                baths, sqft, rent, inUnit, transitPublic,
-               transitFoot, details, contacted, likes} = this.props;
+               transitFoot, details, contacted} = this.props;
         return (
             <div className="listing-outer">
                 <div className="listing-tabs-row">
                     <div className="listing-tab">
-                        <LikeButton id={id} onClick={(id) => this.onClick("like",id)} />
+                        <LikeButton id={id} onClick={(id) => this.onClick("like",id,"")} />
                     </div>
                     <div className="listing-tab">
                         <EditButton onClick={() => console.log("edit click")} />
                     </div>
                     <div className="listing-tab">
-                        <RemoveButton id={id} onClick={(id) => this.onClick("remove",id)} />
+                        <RemoveButton id={id} address={address} onClick={(id) => this.onClick("remove",id, address)} />
                     </div>
                 </div>
                 <div className="listing">
